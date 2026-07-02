@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>午餐靈魂占卜所</title>
+    <style>
+        /* 全域極簡與神祕感視覺設計 */
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle, #243342 0%, #0f171e 100%);
+            color: #e2e8f0;
+            font-family: "PingFang TC", "Noto Sans TC", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        h1, h2 {
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        h1 { color: #93c5fd; font-size: 24px; }
+        h2 { color: #f8fafc; font-size: 20px; line-height: 1.6; }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        /* 按鈕樣式與微互動 */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin: 14px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: #cbd5e1;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            padding-left: 25px;
+        }
+
+        .btn:hover {
+            background: #3b82f6;
+            color: #ffffff;
+            border-color: #60a5fa;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .start-btn {
+            text-align: center;
+            background: #3b82f6;
+            color: white;
+            padding: 16px 40px;
+            display: inline-block;
+            width: auto;
+            border-radius: 30px;
+        }
+
+        /* 答案頁面特殊樣式 */
+        .result-title {
+            font-size: 32px;
+            color: #f43f5e;
+            margin: 20px 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .result-comment {
+            color: #cbd5e1;
+            line-height: 1.8;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        /* 預設隱藏其他階段 */
+        .page { display: none; }
+        .active { display: block; animation: fadeIn 0.6s ease forwards; }
+
+        /* 水晶球感應動畫 */
+        .orb {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #60a5fa 0%, #1e40af 100%);
+            border-radius: 50%;
+            margin: 40px auto;
+            box-shadow: 0 0 30px #3b82f6;
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.9); box-shadow: 0 0 20px #3b82f6; }
+            100% { transform: scale(1.1); box-shadow: 0 0 40px #60a5fa, 0 0 60px #3b82f6; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="page-start" class="page active">
+        <h1>午餐靈魂占卜所</h1>
+        <p class="subtitle">擺脫無意義的機率輪盤。<br>閉上眼，聽從內心深處的飢餓共振，<br>讓我們透過三道靈魂拷問，揭曉今日註定的宿命午餐。</p>
+        <button class="btn start-btn" onclick="nextPage('start', 'q1')">開啟靈魂感應</button>
+    </div>
+
+    <div id="page-q1" class="page">
+        <h2>Q1. 靜下心來，想像此刻你的靈魂是什麼顏色？</h2>
+        <button class="btn" onclick="select('spicy', 'q1', 'q2')">Ａ、烈火般的炙紅色</button>
+        <button class="btn" onclick="select('quick', 'q1', 'q2')">Ｂ、枯寂的荒原深灰</button>
+        <button class="btn" onclick="select('light', 'q1', 'q2')">Ｃ、溫潤的翡翠淡綠</button>
+        <button class="btn" onclick="select('heavy', 'q1', 'q2')">Ｄ、盛夏的陽光金黃</button>
+    </div>
+
+    <div id="page-q2" class="page">
+        <h2>Q2. 抬頭想像窗外，你覺得現在的雲朵看起來像什麼？</h2>
+        <button class="btn" onclick="select('spicy', 'q2', 'q3')">Ａ、沉重、快要下雨的積雨雲</button>
+        <button class="btn" onclick="select('light', 'q2', 'q3')">Ｂ、一絲絲、被風吹散的捲雲</button>
+        <button class="btn" onclick="select('heavy', 'q2', 'q3')">Ｃ、軟綿綿、像棉花糖的飛機尾跡</button>
+        <button class="btn" onclick="select('quick', 'q2', 'q3')">Ｄ、萬里無雲，只有一片純粹的藍天</button>
+    </div>
+
+    <div id="page-q3" class="page">
+        <h2>Q3. 如果你是一台即將沒電的機器人，此時最想下載哪個驅動程式？</h2>
+        <button class="btn" onclick="select('light', 'q3', 'loading')">Ａ、核心高溫冷卻系統</button>
+        <button class="btn" onclick="select('heavy', 'q3', 'loading')">Ｂ、全效能齒輪潤滑油</button>
+        <button class="btn" onclick="select('quick', 'q3', 'loading')">Ｃ、記憶體超頻加速器</button>
+        <button class="btn" onclick="select('spicy', 'q3', 'loading')">Ｄ、防禦力加固裝甲</button>
+    </div>
+
+    <div id="page-loading" class="page">
+        <h2>波長同步中</h2>
+        <p class="subtitle">正在同步你的意識流與廚房供餐狀況...</p>
+        <div class="orb"></div>
+    </div>
+
+    <div id="page-result" class="page">
+        <h1>今日靈魂命定午餐</h1>
+        <div class="result-title" id="food-target">加載中...</div>
+        <div class="result-comment" id="food-comment">加載中...</div>
+        <button class="btn start-btn" style="background:#475569;" onclick="restart()">逆天改命，重新感應</button>
+    </div>
+</div>
+
+<script>
+    // 儲存各屬性的分數
+    let scores = { spicy: 0, light: 0, heavy: 0, quick: 0 };
+
+    // 單純切換頁面
+    function nextPage(fromId, toId) {
+        document.getElementById('page-' + fromId).classList.remove('active');
+        document.getElementById('page-' + toId).classList.add('active');
+    }
+
+    // 選擇答案並累加權重
+    function select(category, fromId, toId) {
+        scores[category]++;
+        nextPage(fromId, toId);
+
+        // 如果進入到 loading 畫面，設定 1.8 秒後產生結果
+        if(toId === 'loading') {
+            setTimeout(calculateResult, 1800);
+        }
+    }
+
+    // 核心權重邏輯計算
+    function calculateResult() {
+        nextPage('loading', 'result');
+        
+        // 找出最高分的屬性
+        let maxCategory = 'mix';
+        let maxScore = 0;
+        let isTie = false;
+
+        for (let key in scores) {
+            if (scores[key] > maxScore) {
+                maxScore = scores[key];
+                maxCategory = key;
+                isTie = false;
+            } else if (scores[key] === maxScore) {
+                isTie = true; // 出現平手
+            }
+        }
+
+        // 如果選擇太分散或平手，走綜合流
+        if (isTie && maxScore === 1) {
+            maxCategory = 'mix';
+        }
+
+        // 結果資料庫
+        const database = {
+            spicy: {
+                food: "嗜鼎酸辣粉",
+                comment: "「你的靈魂正在悶燒，急需一場舌尖上的暴風雨。不要抗拒，今天你需要流點汗，用徹底的痛快來驅散累積的疲憊。」"
+            },
+            light: {
+                food: "Subway",
+                comment: "「你追求的是風一樣的輕盈。被工作與雜事塞滿的腦袋，此時容不下油膩的負擔。讓清爽的口感洗滌你的心靈吧。」"
+            },
+            heavy: {
+                food: "玉林雞腿",
+                comment: "「正能量正在高喊著多巴胺！你的身體很誠實，它需要扎實的澱粉與飽滿的油脂。大口吃肉、大口扒飯，才是今天唯一的正解。」"
+            },
+            quick: {
+                food: "程味珍旁邊的雞肉飯",
+                comment: "「踏實、俐落是你的座右銘。你不想在無謂的抉擇上浪費核心效能。街角那家老麵攤，就是包容你此時所有情緒的最佳避風港。」"
+            },
+            mix: {
+                food: "山珍海味",
+                comment: "「你的靈魂此刻處於極度平衡（或極度糾結）的狀態。既然什麼都想來一點，那就選擇菜色豐富的傳統便當吧，完美包容你多變的頻率。」"
+            }
+        };
+
+        // 渲染到網頁画面上
+        document.getElementById('food-target').innerText = database[maxCategory].food;
+        document.getElementById('food-comment').innerText = database[maxCategory].comment;
+    }
+
+    // 重新測驗
+    function restart() {
+        scores = { spicy: 0, light: 0, heavy: 0, quick: 0 };
+        nextPage('result', 'start');
+    }
+</script>
+
+</body>
+</html>
